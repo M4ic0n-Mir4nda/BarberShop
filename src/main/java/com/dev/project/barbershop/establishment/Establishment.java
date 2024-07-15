@@ -1,0 +1,51 @@
+package com.dev.project.barbershop.establishment;
+
+import com.dev.project.barbershop.address.Address;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.UUID;
+
+@Entity
+@Table(name = "establishment")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Establishment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private UUID establishmentId;
+
+    @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(name = "name", nullable = false)
+    private String nameEstablishment;
+
+    @Column(nullable = false)
+    private String whatsapp;
+
+    @Column(nullable = false, unique = true)
+    private String cnpj;
+
+    @OneToOne
+    @JoinColumn(name = "address_id", nullable = false)
+    private Address address;
+
+    public Establishment(EstablishmentRequestPayload data, Address address) {
+        this.email = data.email();
+        this.password = data.password();
+        this.nameEstablishment = data.name();
+        this.whatsapp = data.whatsapp();
+        this.cnpj = data.cnpj();
+        this.address = address;
+    }
+}
