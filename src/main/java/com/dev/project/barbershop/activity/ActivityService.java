@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ActivityService {
@@ -20,5 +22,11 @@ public class ActivityService {
 
     public List<Activity> getAllActivities() {
         return this.activityRepository.findAll();
+    }
+
+    public Optional<Activity> getActivityById(UUID activityId) { return this.activityRepository.findById(activityId); }
+
+    public void updateActivity() {
+
     }
 }

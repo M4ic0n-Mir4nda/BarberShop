@@ -35,7 +35,8 @@ public class EstablishmentController {
             Optional<Establishment> establishment = this.establishmentService.getEstablishmentByCnpj(cnpj);
 
             if (establishment.isPresent()) {
-                throw new CustomException("Não foi possivel criar estabelecimento! CNPJ já cadastrado!");
+                Establishment cnpjEstablishment = establishment.get();
+                throw new CustomException("Não foi possivel criar estabelecimento: " + cnpjEstablishment.getCnpj() + " já cadastrado!");
             }
 
             Optional<Address> address = this.addressService.getEstablishmentAddress(addressId);
