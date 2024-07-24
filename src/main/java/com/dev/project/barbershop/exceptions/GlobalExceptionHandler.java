@@ -18,11 +18,18 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(NotFoundActivitiesException.class)
-    public ResponseEntity<Map<String, String>> handleNotFoundActivitiesException(NotFoundActivitiesException ex) {
+    @ExceptionHandler(NotFoundRecordsException.class)
+    public ResponseEntity<Map<String, String>> handleNotFoundActivitiesException(NotFoundRecordsException ex) {
         Map<String, String> errorResponse = new HashMap<>();
         errorResponse.put("message", ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.OK);
+    }
+
+    @ExceptionHandler(ErrorWhenSavingOrDeleteException.class)
+    public ResponseEntity<Map<String, String>> handleErrorWhenSavingException(ErrorWhenSavingOrDeleteException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 }
 

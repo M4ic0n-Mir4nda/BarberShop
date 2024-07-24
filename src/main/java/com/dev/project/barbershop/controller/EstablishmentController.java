@@ -1,9 +1,12 @@
-package com.dev.project.barbershop.establishment;
+package com.dev.project.barbershop.controller;
 
-import com.dev.project.barbershop.address.Address;
-import com.dev.project.barbershop.address.AddressService;
+import com.dev.project.barbershop.model.Address;
+import com.dev.project.barbershop.service.AddressService;
+import com.dev.project.barbershop.model.Establishment;
+import com.dev.project.barbershop.response.EstablishmentCreateResponse;
+import com.dev.project.barbershop.payload.EstablishmentRequestPayload;
+import com.dev.project.barbershop.service.EstablishmentService;
 import com.dev.project.barbershop.exceptions.CustomException;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +26,7 @@ public class EstablishmentController {
 
     @PostMapping("/{addressId}/address")
     public ResponseEntity<EstablishmentCreateResponse> createEstablishment(@RequestBody EstablishmentRequestPayload payload,
-                                                                           @PathVariable UUID addressId) {
+                                                                           @PathVariable UUID addressId) throws CustomException {
             String cnpj = payload.cnpj().trim();
 
             if (cnpj.isEmpty()) {
@@ -52,7 +55,7 @@ public class EstablishmentController {
     }
 
     @GetMapping("/{establishmentId}")
-    public ResponseEntity<Establishment> getEstablishmentDetails(@PathVariable UUID establishmentId) {
+    public ResponseEntity<Establishment> getEstablishmentDetails(@PathVariable UUID establishmentId) throws CustomException {
         Optional<Establishment> establishment = this.establishmentService.getEstablishmentDetails(establishmentId);
 
         if (establishment.isEmpty()) {
@@ -61,10 +64,4 @@ public class EstablishmentController {
 
         return establishment.map(ResponseEntity::ok).orElseGet(() -> null);
     }
-
-    @GetMapping("/{establishmentId}/activity/{}")
-    public void getActivity() {
-
-    }
-
 }

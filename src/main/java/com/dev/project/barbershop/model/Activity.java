@@ -1,18 +1,16 @@
-package com.dev.project.barbershop.activity;
+package com.dev.project.barbershop.model;
 
+import com.dev.project.barbershop.payload.ActivityRequestPayload;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
+@Table(name = "activity")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Activity {

@@ -1,0 +1,6 @@
+CREATE TABLE customer (
+    id UUID DEFAULT RANDOM_UUID() PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    cpf VARCHAR(18) NOT NULL,
+    whatsapp VARCHAR(11) NOT NULL
+);

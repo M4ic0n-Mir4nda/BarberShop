@@ -1,5 +1,9 @@
-package com.dev.project.barbershop.address;
+package com.dev.project.barbershop.controller;
 
+import com.dev.project.barbershop.model.Address;
+import com.dev.project.barbershop.response.AddressCreateResponse;
+import com.dev.project.barbershop.repository.AddressRepository;
+import com.dev.project.barbershop.payload.AddressRequestPayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

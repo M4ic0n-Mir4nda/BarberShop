@@ -1,6 +1,6 @@
-package com.dev.project.barbershop.establishment;
+package com.dev.project.barbershop.model;
 
-import com.dev.project.barbershop.address.Address;
+import com.dev.project.barbershop.payload.EstablishmentRequestPayload;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,8 +18,7 @@ import java.util.UUID;
 public class Establishment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private UUID establishmentId;
+    private UUID id;
 
     @Column(nullable = false)
     private String email;

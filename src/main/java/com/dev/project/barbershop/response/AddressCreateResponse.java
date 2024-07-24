@@ -1,4 +1,4 @@
-package com.dev.project.barbershop.address;
+package com.dev.project.barbershop.response;
 
 import java.util.UUID;
 

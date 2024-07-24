@@ -1,4 +1,4 @@
-package com.dev.project.barbershop.activity;
+package com.dev.project.barbershop.payload;
 
 import java.time.LocalTime;
 

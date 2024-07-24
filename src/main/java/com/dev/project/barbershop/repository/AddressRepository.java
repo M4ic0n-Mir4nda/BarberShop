@@ -1,6 +1,7 @@
-package com.dev.project.barbershop.address;
+package com.dev.project.barbershop.repository;
 
 
+import com.dev.project.barbershop.model.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

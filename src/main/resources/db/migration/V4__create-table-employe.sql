@@ -1,0 +1,6 @@
+CREATE TABLE employe (
+    id UUID DEFAULT RANDOM_UUID() PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    cpf VARCHAR(18) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);

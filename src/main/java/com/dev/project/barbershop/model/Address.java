@@ -1,16 +1,14 @@
-package com.dev.project.barbershop.address;
+package com.dev.project.barbershop.model;
 
+import com.dev.project.barbershop.payload.AddressRequestPayload;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
+@Table(name = "address")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
