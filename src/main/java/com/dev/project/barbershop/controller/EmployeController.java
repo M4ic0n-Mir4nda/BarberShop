@@ -4,7 +4,6 @@ import com.dev.project.barbershop.exceptions.CustomException;
 import com.dev.project.barbershop.exceptions.NotFoundRecordsException;
 import com.dev.project.barbershop.model.Employe;
 import com.dev.project.barbershop.payload.EmployeRequestPayload;
-import com.dev.project.barbershop.repository.EmployeRepository;
 import com.dev.project.barbershop.response.UserData;
 import com.dev.project.barbershop.response.UserResponse;
 import com.dev.project.barbershop.service.UserServiceImpl;
@@ -34,7 +33,7 @@ public class EmployeController {
     }
 
     @GetMapping("/{employeId}")
-    public ResponseEntity<UserData> getEmployeById(@PathVariable UUID employeId) throws NotFoundRecordsException {
+    public ResponseEntity<UserData> getEmployeById(@PathVariable UUID employeId) throws CustomException {
         EmployeRequestPayload payload = new EmployeRequestPayload("", "", "");
         UserData employe = this.userService.getUserById(payload, employeId);
         return ResponseEntity.ok(employe);
@@ -42,17 +41,17 @@ public class EmployeController {
 
     @PutMapping("/{employeId}")
     public ResponseEntity<Optional<Employe>> updateEmploye(@PathVariable UUID employeId,
-                                                           @RequestBody EmployeRequestPayload payload) throws NotFoundRecordsException {
+                                                           @RequestBody EmployeRequestPayload payload) throws CustomException {
         Optional<Employe> employe = Optional.ofNullable(this.userService.updateEmploye(payload, employeId));
 
         if (employe.isEmpty()) {
-            throw new NotFoundRecordsException("Funcionario não encontrado");
+            throw new CustomException("Funcionario não encontrado");
         }
         return ResponseEntity.ok(employe);
     }
 
     @DeleteMapping("/{employeId}")
-    public ResponseEntity<Map<String, String>> deleteEmploye(@PathVariable UUID employeId) throws NotFoundRecordsException {
+    public ResponseEntity<Map<String, String>> deleteEmploye(@PathVariable UUID employeId) throws CustomException {
         Boolean employeDelete = this.userService.deleteEmploye(employeId);
 
         if (employeDelete) {
@@ -61,6 +60,6 @@ public class EmployeController {
             return ResponseEntity.ok(message);
         }
 
-        throw new NotFoundRecordsException("Funcionario não encontrado");
+        throw new CustomException("Funcionario não encontrado");
     }
 }
