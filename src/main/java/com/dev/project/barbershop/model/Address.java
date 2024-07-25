@@ -1,10 +1,7 @@
 package com.dev.project.barbershop.model;
 
-import com.dev.project.barbershop.payload.AddressRequestPayload;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "address")
@@ -12,34 +9,23 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
-
-    @Column(nullable = false)
-    private String street;
-
-    @Column(name = "number", nullable = false)
-    private int numberAddress;
-
-    private String complement;
-
-    @Column(nullable = false)
     private String cep;
 
-    @Column(nullable = false)
-    private String city;
+    @Column(name = "public_place", nullable = false)
+    private String logradouro;
 
-    @Column(nullable = false)
+    @Column(name = "complement", nullable = false)
+    private String complemento;
+
+    @Column(name = "neighborhood", nullable = false)
+    private String bairro;
+
+    @Column(name = "city", nullable = false)
+    private String localidade;
+
     private String uf;
 
-    public Address(AddressRequestPayload data) {
-        this.street = data.street();
-        this.numberAddress = data.number();
-        this.complement = data.complement();
-        this.cep = data.cep();
-        this.city = data.city();
-        this.uf = data.uf();
-    }
-
+    private Long ddd;
 }

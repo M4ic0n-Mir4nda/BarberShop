@@ -20,9 +20,6 @@ public class ActivityController {
     @Autowired
     private ActivityService activityService;
 
-    @Autowired
-    private ActivityRepository repository;
-
     @PostMapping
     public ResponseEntity<Activity> createService(@RequestBody ActivityRequestPayload payload) {
         Activity newActivity = this.activityService.createService(payload);
@@ -49,7 +46,7 @@ public class ActivityController {
             throw new CustomException("Serviço não encontrado, tente novamente!");
         }
 
-        return activity.map(ResponseEntity::ok).orElseGet(() -> null);
+        return activity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{activityId}/update")
@@ -69,7 +66,7 @@ public class ActivityController {
 
     @DeleteMapping("/{activityId}")
     public ResponseEntity<Map<String, String>> deleteActivity(@PathVariable UUID activityId) throws CustomException {
-        Optional<Activity> activityDelete = this.repository.findById(activityId);
+        Optional<Activity> activityDelete = this.activityService.getActivityById(activityId);
 
         if (activityDelete.isPresent()) {
             Boolean deleteReturn = this.activityService.deleteActivity(activityId);

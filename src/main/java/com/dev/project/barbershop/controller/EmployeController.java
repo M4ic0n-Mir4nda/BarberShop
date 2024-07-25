@@ -5,39 +5,62 @@ import com.dev.project.barbershop.exceptions.NotFoundRecordsException;
 import com.dev.project.barbershop.model.Employe;
 import com.dev.project.barbershop.payload.EmployeRequestPayload;
 import com.dev.project.barbershop.repository.EmployeRepository;
-import com.dev.project.barbershop.response.EmployeData;
-import com.dev.project.barbershop.response.EmployeResponse;
-import com.dev.project.barbershop.service.EmployeService;
+import com.dev.project.barbershop.response.UserData;
+import com.dev.project.barbershop.response.UserResponse;
+import com.dev.project.barbershop.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("employe")
 public class EmployeController {
 
     @Autowired
-    private EmployeService employeService;
-
-    @Autowired
-    private EmployeRepository employeRepository;
+    private UserServiceImpl userService;
 
     @PostMapping
-    public ResponseEntity<EmployeResponse> createEmploye(@RequestBody EmployeRequestPayload payload) throws CustomException {
-        EmployeResponse newEmploye = this.employeService.createEmploye(payload);
+    public ResponseEntity<UserResponse> createEmploye(@RequestBody EmployeRequestPayload payload) throws CustomException {
+        UserResponse newEmploye = this.userService.createUser(payload);
         return ResponseEntity.ok(newEmploye);
     }
 
     @GetMapping("/employes")
-    public ResponseEntity<List<EmployeData>> getAllEmployes() throws NotFoundRecordsException {
-        List<EmployeData> employesList = this.employeService.getAllEmployes();
+    public ResponseEntity<List<UserData>> getAllEmployes(@RequestBody EmployeRequestPayload payload) throws NotFoundRecordsException {
+        List<UserData> employesList = this.userService.getAllUsers(payload);
+        return ResponseEntity.ok(employesList);
+    }
 
-        if (employesList.isEmpty()) {
-            throw new NotFoundRecordsException("Nenhum funcionario cadastrado");
+    @GetMapping("/{employeId}")
+    public ResponseEntity<UserData> getEmployeById(@PathVariable UUID employeId) throws NotFoundRecordsException {
+        EmployeRequestPayload payload = new EmployeRequestPayload("", "", "");
+        UserData employe = this.userService.getUserById(payload, employeId);
+        return ResponseEntity.ok(employe);
+    }
+
+    @PutMapping("/{employeId}")
+    public ResponseEntity<Optional<Employe>> updateEmploye(@PathVariable UUID employeId,
+                                                           @RequestBody EmployeRequestPayload payload) throws NotFoundRecordsException {
+        Optional<Employe> employe = Optional.ofNullable(this.userService.updateEmploye(payload, employeId));
+
+        if (employe.isEmpty()) {
+            throw new NotFoundRecordsException("Funcionario não encontrado");
+        }
+        return ResponseEntity.ok(employe);
+    }
+
+    @DeleteMapping("/{employeId}")
+    public ResponseEntity<Map<String, String>> deleteEmploye(@PathVariable UUID employeId) throws NotFoundRecordsException {
+        Boolean employeDelete = this.userService.deleteEmploye(employeId);
+
+        if (employeDelete) {
+            Map<String, String> message = new HashMap<>();
+            message.put("message", "Funcionario deletado com sucesso!");
+            return ResponseEntity.ok(message);
         }
 
-        return ResponseEntity.ok(employesList);
+        throw new NotFoundRecordsException("Funcionario não encontrado");
     }
 }

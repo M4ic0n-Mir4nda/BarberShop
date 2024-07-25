@@ -35,16 +35,15 @@ public class Establishment {
     @Column(nullable = false, unique = true)
     private String cnpj;
 
-    @OneToOne
-    @JoinColumn(name = "address_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "cep", nullable = false)
     private Address address;
 
-    public Establishment(EstablishmentRequestPayload data, Address address) {
+    public Establishment(EstablishmentRequestPayload data) {
         this.email = data.email();
         this.password = data.password();
         this.nameEstablishment = data.name();
         this.whatsapp = data.whatsapp();
         this.cnpj = data.cnpj();
-        this.address = address;
     }
 }

@@ -1,9 +1,9 @@
 CREATE TABLE address (
-    id UUID DEFAULT RANDOM_UUID() PRIMARY KEY,
-    street VARCHAR(255) NOT NULL,
-    number INT,
+    cep VARCHAR(9) NOT NULL PRIMARY KEY,
+    public_place VARCHAR(255) NOT NULL,
     complement VARCHAR(255),
-    cep VARCHAR(9) NOT NULL,
+    neighborhood VARCHAR(255) NOT NULL,
     city VARCHAR(255) NOT NULL,
-    uf VARCHAR(2) NOT NULL
+    uf VARCHAR(2) NOT NULL,
+    ddd INT NOT NULL
 );
