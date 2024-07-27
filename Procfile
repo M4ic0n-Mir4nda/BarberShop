@@ -1,0 +1,1 @@
+web: java -jar target/barbershop-0.0.1-SNAPSHOT.jar
