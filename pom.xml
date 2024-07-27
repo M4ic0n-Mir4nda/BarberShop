@@ -131,7 +131,7 @@
 					<archive>
 						<manifest>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-							<mainClass>me.dio.Application</mainClass>
+							<mainClass>com.dev.project.barbershop.Application</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
